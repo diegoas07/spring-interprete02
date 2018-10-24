@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- definimos al inicio los beans menos dependientes -->
+
+	<!-- equivalente al código Java: InterpreteEspanol interpreteEspanol = new 
+		InterpreteEspanol(); -->
+
+	<bean id="interpreteES" class="beans.InterpreteEspanol">
+	</bean>
+
+	<bean id="interpreteEN" class="beans.InterpreteIngles">
+	</bean>
+
+	<!-- definimos al último los beans mas dependientes -->
+
+	<bean id="traductorEspanol" class="beans.Traductor">
+		<!-- equivalente a: traductor.setInterprete(interpreteEspanol); -->
+		<property name="interprete" ref="interpreteES"></property>
+		<!-- equivalente a: traductor.setNombre("Carlos Esparza"); -->
+		<property name="_nombre" value="Das"></property>
+	</bean>
+
+
+
+	<bean id="traductorIngles" class="beans.Traductor">
+		<!-- Podemos agregar un interprete distinto a la clase traductor debido 
+			a que utilizamos un tipo interfaz Interprete -->
+		<property name="interprete" ref="interpreteEN"></property>
+		<property name="_nombre" value="DAS EN"></property>
+	</bean>
+
+</beans>
